@@ -1,0 +1,13 @@
+<p ng-if="!security.isAuthenticated()">
+  Please <a href="/user/login">log in</a> to access the User application
+</p>
+
+<article ng-if="users.length > 0">
+  <p><input ng-model="query" placeholder="Search users"></p>
+
+  <section ng-repeat="_id in users | filter:query ">
+   <p><a ng-href="{{ _id }}">{{ _id }}</a></p>
+  </section>
+</article>
+
+<npdc:create-button></npdc:create-button>

@@ -1,0 +1,34 @@
+{
+  "fieldsets": [
+    {
+      "title": "User",
+      "fields": [
+       {
+          "id": "_id", "hidden": false, "title": "Login (email address)"
+        },
+        "name",
+        "uri"
+      ]
+    },
+    {
+      "title": "Security",
+      "fields": ["password", "salt", "hash", "active"]
+    },
+    {
+      "title": "Systems",
+      "fields": [
+        {
+          "id": "systems"
+        }
+      ]
+    },
+    {
+      "title": "Groups",
+      "fields": [
+        {
+          "id": "groups"
+        }
+      ]
+    }
+  ]
+}
