@@ -14,6 +14,7 @@ var npdcPersonApp = angular.module('npdcPersonApp', ['ngRoute', 'formula', 'npol
 npdcPersonApp.controller('UserShowController', require('./show/UserShowController'));
 npdcPersonApp.controller('UserListController', require('./list/UserListController'));
 npdcPersonApp.controller('UserEditController', require('./edit/UserEditController'));
+npdcPersonApp.controller('UserRegisterController', require('./register/UserRegisterController'));
 
 // Bootstrap ngResource models using NpolarApiResource
 var resources = [
