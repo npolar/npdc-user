@@ -11,6 +11,9 @@ var UserRegisterController = function ($scope, $http, $location, $routeParams, n
 
   $scope.resource = User;
   $scope.user = {link: `https://${window.location.host}/user/confirm`};
+  
+  const captchaUri = "http://localhost:20938";
+  $scope.useCaptcha = false;
 
   $scope.compare = function(user) {
     if (user.password2 !== undefined) {
@@ -28,21 +31,39 @@ var UserRegisterController = function ($scope, $http, $location, $routeParams, n
 
   $scope.register = function(user) {
     if (user.password !== user.password2) {
-      message.emit("npolar-api-error", "Password mismatch. make sure the passwords are written the same");
+      message.emit("npolar-api-error", "Password mismatch! Please enter the same password twice.");
     } else {
       $scope.user = user;
-      var req = { method: "POST", url: registrationUri, data: $scope.user };
-      $http(req).success(reponse => {$location.path('.');}).error(
-        response => { message.emit("npolar-api-error", "Registration failed"); }
-      );
+      $http({
+        method: "POST",
+        url: registrationUri,
+        data: $scope.user,
+		headers: {
+			//"Authorization": "Sicas " + base64.encode($scope.captchaId + ":" + $scope.captcha)
+		}
+      }).success(reponse => { $location.path('.'); }).error(response => { message.emit("npolar-api-error", "Registration failed"); });
     }
   };
 
   $scope.confirm = function(id) {
-      var req = { method: "GET", url: confirmationUri+$routeParams.id };
-      $http(req).success(response => { $location.path('.');}).error(
-        response => { message.emit("npolar-api-error", "Confirmation failed"); }
-      );
+      $http({
+        method: "GET",
+        url: confirmationUri+$routeParams.id
+      }).success(response => { $location.path('.'); }).error(response => { message.emit("npolar-api-error", "Confirmation failed"); });
+  };
+  
+  ($scope.renewCaptcha = function() {
+    $http({
+      method: "GET",
+      url: captchaUri + "/captcha?width=100&height=50"
+    }).success(response => {
+      $scope.captchaImage = captchaUri + response.path;
+      $scope.captchaId = response.uuid;
+    });
+  })();
+
+  $scope.valid = function() {
+    return (!$scope.useCaptcha || $scope.captcha) && $scope.user.email && $scope.user.name && $scope.user.password && ($scope.user.password === $scope.user.password2);
   };
 };
 

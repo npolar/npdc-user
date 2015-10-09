@@ -1,14 +1,42 @@
-<md-content layout-padding style="text-align: center;" class="npdc-register">
-  <md-card style="max-width: 500px;margin: auto auto">
-    <md-toolbar class="md-accent">
+<style>
+	.captchaCard
+	{
+		position:  relative;
+	}
+	
+	.captchaCard md-icon
+	{
+		background: rgba(0, 0, 0, 0.4);
+		color: #fff;
+		overflow: hidden;
+		padding: 10px;
+		position: absolute;
+		top: 0;
+		left: 0;
+		opacity: 0;
+		display: none;
+		transition: all .5s;
+	}
+	
+	.captchaCard:hover md-icon
+	{
+		cursor: pointer;
+		display: block;
+		opacity: 1;
+	}
+</style>
+
+<md-content layout-padding class="npdc-register">
+  <md-card style="max-width: 500px; margin: auto;">
+    <md-toolbar class="md-accent" layout="row" layout-align="center center">
       <h2>Register</h2>
     </md-toolbar>
     <form role="form" layout-padding>
       <md-card-content>
         <md-input-container class="md-icon-float" >
-          <label>Email</label>
+          <label>E-Mail</label>
           <md-icon class="name">email</md-icon>
-          <input ng-model="user.email" type="text">
+          <input ng-model="user.email" type="email">
         </md-input-container>
         <md-input-container class="md-icon-float" >
           <label>Name</label>
@@ -21,14 +49,26 @@
           <input ng-model="user.password" type="password" ng-change="compare(user)" ng-style="pwdStyle">
         </md-input-container>
         <md-input-container class="md-icon-float npdc-register-pwd" >
-          <label>Repeat Password</label>
+          <label>Password (confirm)</label>
           <md-icon class="name" ng-style="pwdStyle">security</md-icon>
           <input ng-model="user.password2" type="password" ng-change="compare(user)" ng-style="pwdStyle">
         </md-input-container>
       </md-card-content>
-      <div class="md-actions" layout="row" layout-align="end center">
-        <md-button class="md-raised" ng-href=".">Cancel</md-button>
-        <md-button class="md-raised md-primary" ng-click="register(user)">Register</md-button>
+      <div class="md-actions" layout="row">
+        <md-card flex layout-align="start start" class="captchaCard" ng-show="useCaptcha">
+          <img ng-src="{{ captchaImage }}" alt="Captcha" class="md-card-image">
+          <md-icon ng-click="renewCaptcha()">autorenew</md-icon>
+        </md-card>
+        <div flex layout="column" layout-align="center end">
+          <md-input-container ng-show="useCaptcha">
+            <label>Captcha</label>
+            <input ng-model="captcha" type="text">
+		  </md-input-container>
+          <div flex layout="row" layout-align="end end">
+            <md-button flex="50" class="md-raised" ng-href=".">Cancel</md-button>
+            <md-button flex="50" class="md-raised md-primary" ng-click="register(user)" ng-disabled="!valid()">Register</md-button>
+		  </div>
+		</div>
       </div>
     </form>
   </md-card>
