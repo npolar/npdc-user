@@ -69,18 +69,20 @@ var UserRegisterController = function ($scope, $http, $location, $routeParams, n
       });
   };
   
-  ($scope.captcha.renew = function() {
-    $http({
-      method: "GET",
-      url: captchaUri + "/captcha?width=100&height=50&time=" + Date.now()
-    }).then(function(response) {
-      $scope.captcha.src = captchaUri + response.data.path;
-      $scope.captcha.uuid = response.data.uuid;
-    });
-  })();
+  if($scope.captcha) {
+    ($scope.captcha.renew = function() {
+      $http({
+        method: "GET",
+        url: captchaUri + "/captcha?width=100&height=50&time=" + Date.now()
+      }).then(function(response) {
+        $scope.captcha.src = captchaUri + response.data.path;
+        $scope.captcha.uuid = response.data.uuid;
+      });
+    })();
+  }
 
   $scope.valid = function() {
-    return (!$scope.captcha.enable || $scope.captcha.string) && $scope.user.email && $scope.user.name && $scope.user.password && ($scope.user.password === $scope.user.password2);
+    return (!$scope.captcha || $scope.captcha.string) && $scope.user.email && $scope.user.name && $scope.user.password && ($scope.user.password === $scope.user.password2);
   };
 };
 
