@@ -8,12 +8,17 @@ var UserRegisterController = function ($scope, $http, $location, $routeParams, n
   const message = NpolarApiMessage;
   const registrationUri = "https://"+npolarApiConfig.base.split("//")[1]+"/user/register";
   const confirmationUri = "https://"+npolarApiConfig.base.split("//")[1]+"/user/confirm";
+  const captchaUri = "http://localhost:20938";
 
   $scope.resource = User;
   $scope.user = {link: `https://${window.location.host}/user/confirm`};
   
-  const captchaUri = "http://localhost:20938";
-  $scope.useCaptcha = false;
+  $scope.captcha = {
+	enable: true,
+	uuid: null,
+	src: "//:0",
+	string: ""
+  };
 
   $scope.compare = function(user) {
     if (user.password2 !== undefined) {
@@ -39,7 +44,7 @@ var UserRegisterController = function ($scope, $http, $location, $routeParams, n
         url: registrationUri,
         data: $scope.user,
 		headers: {
-			//"Authorization": "Sicas " + base64.encode($scope.captchaId + ":" + $scope.captcha)
+			//"Authorization": "Sicas " + base64.encode($scope.captcha.uuid + ":" + $scope.captcha.string)
 		}
       }).success(reponse => { $location.path('.'); }).error(response => { message.emit("npolar-api-error", "Registration failed"); });
     }
@@ -52,18 +57,18 @@ var UserRegisterController = function ($scope, $http, $location, $routeParams, n
       }).success(response => { $location.path('.'); }).error(response => { message.emit("npolar-api-error", "Confirmation failed"); });
   };
   
-  ($scope.renewCaptcha = function() {
+  ($scope.captcha.renew = function() {
     $http({
       method: "GET",
-      url: captchaUri + "/captcha?width=100&height=50"
-    }).success(response => {
-      $scope.captchaImage = captchaUri + response.path;
-      $scope.captchaId = response.uuid;
+      url: captchaUri + "/captcha?width=100&height=50&time=" + Date.now()
+    }).then(function(response) {
+      $scope.captcha.src = captchaUri + response.data.path;
+      $scope.captcha.uuid = response.data.uuid;
     });
   })();
 
   $scope.valid = function() {
-    return (!$scope.useCaptcha || $scope.captcha) && $scope.user.email && $scope.user.name && $scope.user.password && ($scope.user.password === $scope.user.password2);
+    return (!$scope.captcha.enable || $scope.captcha.string) && $scope.user.email && $scope.user.name && $scope.user.password && ($scope.user.password === $scope.user.password2);
   };
 };
 
