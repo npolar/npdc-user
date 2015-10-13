@@ -46,7 +46,12 @@ var UserRegisterController = function ($scope, $http, $location, $routeParams, n
 		headers: {
 			//"Authorization": "Sicas " + base64.encode($scope.captcha.uuid + ":" + $scope.captcha.string)
 		}
-      }).success(reponse => { $location.path('.'); }).error(response => { message.emit("npolar-api-error", "Registration failed"); });
+      }).success(reponse => {
+        $location.path('.');
+        message.emit('npolar-api-info', 'You should receive a confirmation mail in a short while');
+      }).error(response => {
+        message.emit("npolar-api-error", "Registration failed");
+      });
     }
   };
 
@@ -54,7 +59,12 @@ var UserRegisterController = function ($scope, $http, $location, $routeParams, n
       $http({
         method: "GET",
         url: confirmationUri+$routeParams.id
-      }).success(response => { $location.path('.'); }).error(response => { message.emit("npolar-api-error", "Confirmation failed"); });
+      }).success(response => {
+        $location.path('.');
+        message.emit('npolar-api-info', 'Confirmation successful. You can now login with your new account');
+      }).error(response => {
+        message.emit("npolar-api-error", "Confirmation failed");
+      });
   };
   
   ($scope.captcha.renew = function() {
@@ -73,3 +83,4 @@ var UserRegisterController = function ($scope, $http, $location, $routeParams, n
 };
 
 module.exports = UserRegisterController;
+
