@@ -3,7 +3,7 @@
 /**
  * @ngInject
  */
-var UserRegisterController = function ($scope, $http, $location, $routeParams, npolarApiConfig, NpolarApiMessage, User) {
+var UserRegisterController = function ($scope, $http, $location, $routeParams, npolarApiConfig, NpolarApiMessage, User, base64) {
 
   const message = NpolarApiMessage;
   const registrationUri = "https://"+npolarApiConfig.base.split("//")[1]+"/user/register";
@@ -45,14 +45,14 @@ var UserRegisterController = function ($scope, $http, $location, $routeParams, n
         method: "POST",
         url: registrationUri,
         data: $scope.user,
-		headers: {
-			//"Authorization": "Sicas " + base64.encode($scope.captcha.uuid + ":" + $scope.captcha.string)
-		}
+        headers: {
+          //"Authorization": "Sicas " + base64.encode($scope.captcha.uuid + ":" + $scope.captcha.string)
+        }
       }).then(function success() {
-        $location.path('.');
         message.emit('npolar-api-info', 'You should receive a confirmation mail in a short while');
-      }, function error() {
-        message.emit("npolar-api-error", "Registration failed");
+        $location.path('.');
+      },function error(res) {
+        message.emit("npolar-api-error", (typeof res.data == "object" && res.data && res.data.error ? res.data.error : "Registration failed"));
       });
     }
   };
@@ -62,10 +62,10 @@ var UserRegisterController = function ($scope, $http, $location, $routeParams, n
         method: "GET",
         url: confirmationUri+$routeParams.id
       }).then(function success() {
-        $location.path('.');
         message.emit('npolar-api-info', 'Confirmation successful. You can now login with your new account');
-      }, function error(res) {
-		message.emit("npolar-api-error", (typeof res.data == "object" && res.data.error ? res.data.error : "Confirmation failed"));
+        $location.path('.');
+      }, function error() {
+        message.emit("npolar-api-error", "Confirmation failed");
       });
   };
   
