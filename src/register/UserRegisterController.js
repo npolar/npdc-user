@@ -64,8 +64,8 @@ var UserRegisterController = function ($scope, $http, $location, $routeParams, n
       }).then(function success() {
         $location.path('.');
         message.emit('npolar-api-info', 'Confirmation successful. You can now login with your new account');
-      }, function error() {
-        message.emit("npolar-api-error", "Confirmation failed");
+      }, function error(res) {
+		message.emit("npolar-api-error", (typeof res.data == "object" && res.data.error ? res.data.error : "Confirmation failed"));
       });
   };
   
