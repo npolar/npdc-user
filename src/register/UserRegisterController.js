@@ -6,11 +6,7 @@
 var UserRegisterController = function ($scope, $http, $location, $routeParams, npolarApiConfig, NpolarApiMessage, User, base64) {
   const registrationUri = "https://"+npolarApiConfig.base.split("//")[1]+"/user/register";
   const confirmationUri = "https://"+npolarApiConfig.base.split("//")[1]+"/user/confirm";
-
-  /*
-  const registrationUri = "https://localhost:8950/register";
-  const confirmationUri = "https://localhost:8950/confirm/";
-  const captchaUri = "http://localhost:20938";
+  const captchaUri = "http://data.npolar.no:20938";
   
   $scope.captcha = {
 	enable: true,
@@ -18,7 +14,6 @@ var UserRegisterController = function ($scope, $http, $location, $routeParams, n
 	src: "//:0",
 	string: ""
   };
-  */
 
   $scope.resource = User;
   $scope.user = { link: `https://${window.location.host}/user/confirm` };
@@ -47,7 +42,7 @@ var UserRegisterController = function ($scope, $http, $location, $routeParams, n
         url: registrationUri,
         data: $scope.user,
         headers: {
-          //"Authorization": "Sicas " + base64.encode($scope.captcha.uuid + ":" + $scope.captcha.string)
+          "Authorization": "Sicas " + base64.encode($scope.captcha.uuid + ":" + $scope.captcha.string)
         }
       }).then(function success() {
         NpolarApiMessage.emit("npolar-info", "You should receive a confirmation mail in a short while");
