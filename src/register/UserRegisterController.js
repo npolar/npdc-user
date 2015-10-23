@@ -6,10 +6,9 @@
 var UserRegisterController = function ($scope, $http, $location, $routeParams, npolarApiConfig, NpolarApiMessage, User, base64) {
   const registrationUri = "https://"+npolarApiConfig.base.split("//")[1]+"/user/register";
   const confirmationUri = "https://"+npolarApiConfig.base.split("//")[1]+"/user/confirm";
-  const captchaUri = "http://data.npolar.no:20938";
+  const captchaUri = "https://api.npolar.no/_captcha";
   
   $scope.captcha = {
-	enable: true,
 	uuid: null,
 	src: "//:0",
 	string: ""
@@ -69,7 +68,7 @@ var UserRegisterController = function ($scope, $http, $location, $routeParams, n
     ($scope.captcha.renew = function() {
       $http({
         method: "GET",
-        url: captchaUri + "/captcha?width=100&height=50&time=" + Date.now()
+        url: captchaUri + "/?width=100&height=50&time=" + Date.now()
       }).then(function(response) {
         $scope.captcha.src = captchaUri + response.data.path;
         $scope.captcha.uuid = response.data.uuid;
