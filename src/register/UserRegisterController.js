@@ -55,7 +55,7 @@ var UserRegisterController = function ($scope, $http, $location, $routeParams, n
   $scope.confirm = function(id) {
       $http({
         method: "GET",
-        url: confirmationUri+$routeParams.id
+        url: confirmationUri+'/'+$routeParams.id
       }).then(function success() {
         NpolarApiMessage.emit("npolar-info", "Confirmation successful. You can now login with your new account");
         $location.path(".");
