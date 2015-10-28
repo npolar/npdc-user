@@ -7,7 +7,7 @@ var UserRegisterController = function ($scope, $http, $location, $routeParams, n
   const registrationUri = "https://"+npolarApiConfig.base.split("//")[1]+"/user/register";
   const confirmationUri = "https://"+npolarApiConfig.base.split("//")[1]+"/user/confirm";
   const captchaUri = "https://api.npolar.no/_captcha";
-  
+
   $scope.captcha = {
 	uuid: null,
 	src: "//:0",
@@ -47,7 +47,7 @@ var UserRegisterController = function ($scope, $http, $location, $routeParams, n
         NpolarApiMessage.emit("npolar-info", "You should receive a confirmation mail in a short while");
         $location.path(".");
       }, function error(res) {
-        NpolarApiMessage.emit("npolar-api-error", (typeof res.data == "object" && res.data && res.data.error ? res.data.error : "Registration failed"));
+        NpolarApiMessage.emit("npolar-api-error", (typeof res.data === "object" && res.data && res.data.error ? res.data.error : "Registration failed"));
       });
     }
   };
@@ -63,7 +63,7 @@ var UserRegisterController = function ($scope, $http, $location, $routeParams, n
         NpolarApiMessage.emit("npolar-api-error", "Confirmation failed");
       });
   };
-  
+
   if($scope.captcha) {
     ($scope.captcha.renew = function() {
       $http({
@@ -74,7 +74,7 @@ var UserRegisterController = function ($scope, $http, $location, $routeParams, n
         $scope.captcha.uuid = response.data.uuid;
         $scope.captcha.string = "";
       });
-    })();
+    }());
   }
 
   $scope.valid = function() {
