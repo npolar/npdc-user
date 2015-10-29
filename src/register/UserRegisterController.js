@@ -33,7 +33,7 @@ var UserRegisterController = function ($scope, $http, $location, $routeParams, n
 
   $scope.register = function(user) {
     if (user.password !== user.password2) {
-      NpolarApiMessage.emit("npolar-api-error", "Password mismatch! Please enter the same password twice.");
+      NpolarApiMessage.emit("npolar-error", "Password mismatch! Please enter the same password twice.");
     } else {
       $scope.user = user;
       $http({
@@ -46,8 +46,6 @@ var UserRegisterController = function ($scope, $http, $location, $routeParams, n
       }).then(function success() {
         NpolarApiMessage.emit("npolar-info", "You should receive a confirmation mail in a short while");
         $location.path(".");
-      }, function error(res) {
-        NpolarApiMessage.emit("npolar-api-error", (typeof res.data === "object" && res.data && res.data.error ? res.data.error : "Registration failed"));
       });
     }
   };
@@ -59,8 +57,6 @@ var UserRegisterController = function ($scope, $http, $location, $routeParams, n
       }).then(function success() {
         NpolarApiMessage.emit("npolar-info", "Confirmation successful. You can now login with your new account");
         $location.path(".");
-      }, function error() {
-        NpolarApiMessage.emit("npolar-api-error", "Confirmation failed");
       });
   };
 
