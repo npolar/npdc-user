@@ -10,9 +10,6 @@ var router = function ($routeProvider, $locationProvider) {
   $routeProvider.when('/register', {
     template: require('./register/register-user.html'),
     controller: 'UserRegisterController'
-  }).when('/reset/password', {
-    template: require('./reset/password.html'),
-    controller: 'UserResetController'
   }).when('/reset', {
     template: require('./reset/reset-user.html'),
     controller: 'UserResetController'
