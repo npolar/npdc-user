@@ -60,7 +60,7 @@ var UserRegisterController = function ($scope, $http, $location, $routeParams, n
   };
 
   if($scope.captcha) {
-    ($scope.captcha.renew = function() {
+    $scope.captcha.renew = function() {
       $http({
         method: "GET",
         url: captchaUri + "/?width=100&height=50&time=" + Date.now()
@@ -69,7 +69,10 @@ var UserRegisterController = function ($scope, $http, $location, $routeParams, n
         $scope.captcha.uuid = response.data.uuid;
         $scope.captcha.string = "";
       });
-    })();
+    };
+
+    // Generate initial captcha on page load
+    $scope.captcha.renew();
   }
 
   $scope.valid = function() {
