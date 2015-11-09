@@ -1,25 +1,30 @@
-<article>
-  <h1>{{ document.name }}<span ng-if="false == document.active"> [deactivated]</span></h1>
-  
+<npdc:edit-button class="np-primary-control"></npdc:edit-button>
+
+<article class="np-padding">
+  <npdc-document:meta></npdc-document:meta>
+  <span ng-if="false == document.active"> [deactivated]</span>
+
   <section ng-if="document.systems">
-  <h2>Access rights</h2>
-  <section ng-repeat="system in document.systems">
-    {{ system | json }}
+    <h3>Access rights</h3>
+    <md-divider></md-divider>
+
+    <section ng-repeat="system in document.systems">
+      {{ system | json }}
+    </section>
   </section>
-  
+
   <section ng-if="document.groups">
-    <h2>Groups</h2>
+    <h3>Groups</h3>
+    <md-divider></md-divider>
+
     <ul>
       <li ng-repeat="group in document.groups">{{ group }}</li>
     </ul>
   </section>
-  
+
   <section ng-if="document.uri">
     <a ng-href="{{ personHref(document.uri) }}">{{ document.name}}'s public profile</a>
   </section>
-  
-  <pre>Updated: {{ document.updated}}</pre>
-  
-  <npdc:edit-button></npdc:edit-button>
-  
+
+<pre>Updated: {{ document.updated}}</pre>
 </article>
