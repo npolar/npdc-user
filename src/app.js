@@ -32,11 +32,6 @@ resources.forEach(service => {
 // Routing
 npdcPersonApp.config(require('./router'));
 
-// API HTTP interceptor
-npdcPersonApp.config($httpProvider => {
-  $httpProvider.interceptors.push('npolarApiInterceptor');
-});
-
 // Inject npolarApiConfig and run
 npdcPersonApp.run(npolarApiConfig => {
   var environment = 'production';
