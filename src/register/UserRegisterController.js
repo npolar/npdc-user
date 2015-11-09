@@ -1,17 +1,16 @@
 'use strict';
 
-/**
- * @ngInject
- */
+// @ngInject
+
 var UserRegisterController = function ($scope, $http, $location, $routeParams, npolarApiConfig, NpolarApiMessage, User, base64) {
   const registrationUri = "https://"+npolarApiConfig.base.split("//")[1]+"/user/register";
   const confirmationUri = "https://"+npolarApiConfig.base.split("//")[1]+"/user/confirm";
   const captchaUri = "https://api.npolar.no/_captcha";
 
   $scope.captcha = {
-	uuid: null,
-	src: "//:0",
-	string: ""
+    uuid: null,
+    src: "//:0",
+    string: ""
   };
 
   $scope.resource = User;
@@ -51,13 +50,13 @@ var UserRegisterController = function ($scope, $http, $location, $routeParams, n
   };
 
   $scope.confirm = function(id) {
-      $http({
-        method: "GET",
-        url: confirmationUri+'/'+$routeParams.id
-      }).then(function success() {
-        NpolarApiMessage.emit("npolar-info", "Confirmation successful. You can now login with your new account");
-        $location.path(".");
-      });
+    $http({
+      method: "GET",
+      url: confirmationUri+'/'+$routeParams.id
+    }).then(function success() {
+      NpolarApiMessage.emit("npolar-info", "Confirmation successful. You can now login with your new account");
+      $location.path(".");
+    });
   };
 
   if($scope.captcha) {
