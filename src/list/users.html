@@ -1,13 +1,16 @@
-<p ng-if="!security.isAuthenticated()">
-  Please <a href="/user/login">log in</a> to access the User application
-</p>
+<npdc:create-button class="np-primary-control"></npdc:create-button>
 
-<article ng-if="users.length > 0">
-  <p><input ng-model="query" placeholder="Search users"></p>
+<div class="np-padding">
+  <p ng-if="!security.isAuthenticated()">
+    Please <a href="/user/login">log in</a> to access the User application
+  </p>
 
-  <section ng-repeat="_id in users | filter:query ">
-   <p><a ng-href="{{ _id }}">{{ _id }}</a></p>
-  </section>
-</article>
+  <article ng-if="users.length > 0">
+    <p><input ng-model="query" placeholder="Search users"></p>
 
-<npdc:create-button></npdc:create-button>
+    <section ng-repeat="_id in users | filter:query ">
+      <p><a ng-href="{{ _id }}">{{ _id }}</a></p>
+    </section>
+  </article>
+
+</div>
