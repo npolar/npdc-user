@@ -1,0 +1,22 @@
+<md-content layout-padding class="npdc-register">
+  <md-card style="max-width: 500px; margin: 0 auto;">
+    <md-toolbar class="md-accent" layout="row" layout-align="center center">
+      <h2>Forgotten Password?</h2>
+    </md-toolbar>
+    <form role="form" layout-padding>
+      <md-card-content>
+        <p>To reset your password fill in your E-mail address and we will send you a onetime code that can be used to reset your password by mail.</p>
+        <md-input-container class="md-icon-float">
+          <label>E-Mail</label>
+          <md-icon class="name">email</md-icon>
+          <input ng-model="user.email" type="email">
+        </md-input-container>
+      </md-card-content>
+      <div class="md-actions" layout="row">
+        <md-button flex class="md-raised" ng-href=".">Cancel</md-button>
+        <md-button flex class="md-raised md-primary" ng-click="init(user)">Submit</md-button>
+      </div>
+    </form>
+  </md-card>
+</md-content>
+
