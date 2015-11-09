@@ -6,22 +6,18 @@ var UserResetController = function ($scope, $http, $location, npolarApiConfig, N
   const onetimeUri = 'https://' + npolarApiConfig.base.split('//')[1]+'/user/onetime';
   const resetUri = 'https://' + npolarApiConfig.base.split('//')[1]+'/user/reset';
 
-  $scope.user = {};
-
-  $scope.init = function(user) {
+  $scope.initUser = function(user) {
     $scope.user = user;
-
     $http({
       method: 'POST',
       url: onetimeUri,
-      data: $scope.user
+      data: {email: user.email}
     }).then(function success(data){
-      $location.path('./reset/password');
-      $scope.user = user;
+      NpolarApiMessage.emit("npolar-info", "You should receive en email with your one time code shortly.");
     });
   };
 
-  $scope.reset = function(user) {
+  $scope.resetPasswd = function(user) {
     $http({
       method: 'POST',
       url: resetUri,
