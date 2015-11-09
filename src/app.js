@@ -29,6 +29,11 @@ resources.forEach(service => {
   }]);
 });
 
+// API HTTP interceptor
+npdcPersonApp.config($httpProvider => {
+  $httpProvider.interceptors.push('npolarApiInterceptor');
+});
+
 // Routing
 npdcPersonApp.config(require('./router'));
 
