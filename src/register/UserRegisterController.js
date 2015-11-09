@@ -69,7 +69,7 @@ var UserRegisterController = function ($scope, $http, $location, $routeParams, n
         $scope.captcha.uuid = response.data.uuid;
         $scope.captcha.string = "";
       });
-    }());
+    })();
   }
 
   $scope.valid = function() {
