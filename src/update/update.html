@@ -1,0 +1,30 @@
+<md-content layout-padding class="npdc-register" ng-if="security.isAuthenticated() && name">
+  <md-card style="max-width: 500px; margin: 0 auto;">
+    <md-toolbar class="md-accent" layout="row" layout-align="center center">
+      <h2>Update Credentials</h2>
+    </md-toolbar>
+    <form role="form" layout-padding>
+      <md-card-content>
+        <md-input-container class="md-icon-float">
+          <label>Display Name (Leave blank if you do not wish to update)</label>
+          <md-icon class="name">face</md-icon>
+          <input ng-model="user.name" type="text">
+        </md-input-container>
+        <md-input-container class="md-icon-float">
+          <label>New Password</label>
+          <md-icon class="name" ng-style="pwdStyle">security</md-icon>
+          <input ng-model="user.password" ng-change="compare(user)" ng-style="pwdStyle" type="password">
+        </md-input-container>
+        <md-input-container class="md-icon-float">
+          <label>Repeat Password</label>
+          <md-icon class="name" ng-style="pwdStyle">security</md-icon>
+          <input ng-model="user.password2" ng-change="compare(user)" ng-style="pwdStyle" type="password">
+        </md-input-container>
+      </md-card-content>
+      <div class="md-actions" layout="row">
+        <md-button flex class="md-raised" ng-href=".">Cancel</md-button>
+        <md-button flex class="md-raised md-primary" ng-click="update(user)">Update</md-button>
+      </div>
+    </form>
+  </md-card>
+</md-content>

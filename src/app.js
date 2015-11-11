@@ -15,6 +15,7 @@ npdcPersonApp.controller('UserListController', require('./list/UserListControlle
 npdcPersonApp.controller('UserEditController', require('./edit/UserEditController'));
 npdcPersonApp.controller('UserRegisterController', require('./register/UserRegisterController'));
 npdcPersonApp.controller('UserResetController', require('./reset/UserResetController'));
+npdcPersonApp.controller('UserUpdateController', require('./update/UserUpdateController'));
 
 // Bootstrap ngResource models using NpolarApiResource
 var resources = [
