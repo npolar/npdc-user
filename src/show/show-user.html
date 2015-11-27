@@ -1,6 +1,9 @@
+<!DOCTYPE html>
 <npdc:edit-button class="np-primary-control"></npdc:edit-button>
+<npdc:loader ng-if="!document"></npdc:loader>
 
-<article class="np-padding">
+
+<article ng-if="document" class="np-padding">
   <npdc-document:meta></npdc-document:meta>
   <span ng-if="false == document.active"> [deactivated]</span>
 
@@ -26,5 +29,4 @@
     <a ng-href="{{ personHref(document.uri) }}">{{ document.name}}'s public profile</a>
   </section>
 
-<pre>Updated: {{ document.updated}}</pre>
 </article>
