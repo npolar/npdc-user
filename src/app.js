@@ -10,6 +10,7 @@ var npdcPersonApp = angular.module('npdcPersonApp', ['npdcUi']);
 npdcPersonApp.controller('UserShowController', require('./show/UserShowController'));
 npdcPersonApp.controller('UserListController', require('./list/UserListController'));
 npdcPersonApp.controller('UserEditController', require('./edit/UserEditController'));
+npdcPersonApp.controller('UserLoginController', require('./login/UserLoginController'));
 npdcPersonApp.controller('UserRegisterController', require('./register/UserRegisterController'));
 npdcPersonApp.controller('UserResetController', require('./reset/UserResetController'));
 npdcPersonApp.controller('UserUpdateController', require('./update/UserUpdateController'));

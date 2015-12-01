@@ -10,13 +10,15 @@ let UserListController = function ($scope, $location, $controller, NpolarApiMess
   $controller('NpolarBaseController', { $scope: $scope });
   $scope.resource = User;
   $scope.users = [];
-    
+  
   if (security.isAuthorized('read', User.path)) {
     
     User.fetch({ id: '_ids'}, response => {
       $scope.users = response.ids;
     });
     
+  } else {
+    $location.path('/login');
   }
 };
 
