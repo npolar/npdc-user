@@ -2,11 +2,13 @@
 
 // @ngInject
 
-var UserRegisterController = function ($scope, $http, $location, $routeParams, npolarApiConfig, NpolarApiMessage, User, base64) {
+var UserRegisterController = function ($scope, $http, $location, $routeParams, npolarApiConfig,
+  npdcAppConfig, NpolarApiMessage, User, base64) {
   const registrationUri = "https://"+npolarApiConfig.base.split("//")[1]+"/user/register";
   const confirmationUri = "https://"+npolarApiConfig.base.split("//")[1]+"/user/confirm";
   const captchaUri = "https://api.npolar.no/_captcha";
 
+  npdcAppConfig.cardTitle = 'Register';
   $scope.captcha = {
     uuid: null,
     src: "//:0",

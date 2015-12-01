@@ -2,12 +2,16 @@
 
 // @ngInject
 
-var UserResetController = function ($scope, $http, $location, npolarApiConfig, NpolarApiMessage, base64) {
+var UserResetController = function ($scope, $http, $location, npolarApiConfig, NpolarApiMessage, npdcAppConfig, base64) {
   const onetimeUri = 'https://' + npolarApiConfig.base.split('//')[1]+'/user/onetime';
   const resetUri = 'https://' + npolarApiConfig.base.split('//')[1]+'/user/reset';
 
+  npdcAppConfig.cardTitle = 'Forgotten password?';
+
   $scope.initUser = function(user) {
     $scope.user = user;
+    npdcAppConfig.cardTitle = 'Reset password';
+
     $http({
       method: 'POST',
       url: onetimeUri,
