@@ -10,11 +10,7 @@ let UserListController = function ($scope, $location, $controller, NpolarApiMess
   $controller('NpolarBaseController', { $scope: $scope });
   $scope.resource = User;
   $scope.users = [];
-  
-  if (!security.isAuthenticated()) {
-    NpolarApiMessage.emit("npolar-info", "Please log in to access the NPDC user application");
-  }
-  
+    
   if (security.isAuthorized('read', User.path)) {
     
     User.fetch({ id: '_ids'}, response => {
