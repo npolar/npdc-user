@@ -42,7 +42,7 @@ var UserLoginController = function ($scope, $controller, $http, $location, Npola
   $scope.onetimePassword = function(email) {
     Gouncer.onetime(email).then(function success(data){  
       $scope.onetimePasswordReceived = true;
-      NpolarApiMessage.emit("npolar-info", `1-time password sent to: ${user.email}`);
+      NpolarApiMessage.emit("npolar-info", `1-time password sent to: ${email}`);
     });
   };
 
