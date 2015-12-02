@@ -2,7 +2,7 @@
 /**
  * @ngInject
  */
-var PersonShowController = function ($scope, $controller, $routeParams, Person, User, npdcAppConfig) {
+var UserShowController = function ($scope, $controller, $routeParams, Person, User, npdcAppConfig) {
 
   $controller('NpolarLoginController', {$scope: $scope}); // makes logout available
   $scope.resource = User;
@@ -21,9 +21,7 @@ var PersonShowController = function ($scope, $controller, $routeParams, Person, 
 
   let id = $routeParams;
   
-  
   $scope.isLoggedInAs = function(email) {
-    console.log(email, $scope.security.getUser());
     return ($scope.security.getUser().email === email);
   };
 
@@ -57,7 +55,7 @@ var PersonShowController = function ($scope, $controller, $routeParams, Person, 
       npdcAppConfig.cardTitle = data.name;
     });
   } else {
-
+  
     // Not authorized, switch to the Person API until https://github.com/npolar/api.npolar.no/issues/63
     id = { id: $routeParams.id.split('@')[0] } ;
     show(Person, id);
@@ -65,4 +63,4 @@ var PersonShowController = function ($scope, $controller, $routeParams, Person, 
 
 };
 
-module.exports = PersonShowController;
+module.exports = UserShowController;

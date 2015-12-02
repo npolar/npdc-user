@@ -3,7 +3,7 @@
   <md-card layout-padding>
 
     <section ng-if="security.isAuthenticated()">You are logged in as <a ng-href="{{ user.email }}">{{ user.name }}</a>
-      <md-button type="submit" ng-click="logout()" class="md-raised md-primary">Logout</md-button>
+      <md-button type="submit" ng-click="logoutAndRedirectToOrigin()" class="md-raised md-primary">Logout</md-button>
     </section>
 
     <section ng-if="!security.isAuthenticated()">
@@ -21,7 +21,7 @@
           </md-input-container>
         </div>
         <div class="md-actions" layout="row">
-          <md-button ng-disabled="" flex ng-click="loginAndRedirectToOrigin(user.email,user.password)" class="md-raised md-primary">Login</md-button>
+          <md-button ng-disabled="!user.password" flex ng-click="loginAndRedirectToOrigin(user.email,user.password)" class="md-raised md-primary">Login</md-button>
         </div>
 
       </form>
@@ -33,7 +33,7 @@
       <div ng-show="!isWaitingForOnetimePassword()">
       <hr>
       <p>Not a user? <a href="register">Register</a>
-      <p>Forgot password? <md-button ng-disabled="!user.email" flex ng-click="onetimePassword(user.email)">Email 1-time code</md-button></p>
+      <p>Forgot password? <md-button ng-disabled="!user.email" flex ng-click="emailOnetimePassword(user.email)" class="md-raised">Email 1-time code</md-button></p>
       </div>
       
     </section>
