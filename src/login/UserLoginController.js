@@ -2,7 +2,7 @@
 
 // @ngInject
 
-var UserLoginController = function ($scope, $controller, $http, $location, Gouncer, npolarApiConfig, npdcAppConfig) {
+var UserLoginController = function ($scope, $controller, $http, $location, NpolarApiMessage, Gouncer, npolarApiConfig, npdcAppConfig) {
   
   $controller('NpolarLoginController', { $scope: $scope });
   $scope.onetimePasswordReceived = false;
