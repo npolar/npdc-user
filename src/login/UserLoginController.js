@@ -53,7 +53,7 @@ let UserLoginController = function ($scope, $controller, $http, $location, Npola
   
   npdcAppConfig.cardTitle = "Login";
   
-  $scope.onetimePassword = function(email) {
+  $scope.emailOnetimePassword = function(email) {
     Gouncer.onetime(email).then(function success(data){  
       $scope.onetimePasswordReceived = true;
       NpolarApiMessage.emit("npolar-info", `1-time password sent to: ${email}`);
