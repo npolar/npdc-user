@@ -7,6 +7,11 @@ var UserResetController = function ($scope, $http, $location, npolarApiConfig, N
   const resetUri = 'https://' + npolarApiConfig.base.split('//')[1]+'/user/reset';
 
   npdcAppConfig.cardTitle = 'Forgotten password?';
+  
+  $scope.user = {};
+  if ($location.search().username) {
+    $scope.user.email = $location.search().username;
+  }
 
   $scope.initUser = function(user) {
     $scope.user = user;

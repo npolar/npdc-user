@@ -4,6 +4,12 @@
 
 
 <article ng-if="document" class="np-padding">
+
+  <div ng-if="isLoggedInAs(document._id)">
+    <h3>You are logged in as this user</h3>
+  </div>
+  
+  
   <npdc-document:meta></npdc-document:meta>
   <span ng-if="false == document.active"> [deactivated]</span>
 
@@ -26,7 +32,16 @@
   </section>
 
   <section ng-if="document.uri">
-    <a ng-href="{{ personHref(document.uri) }}">{{ document.name}}'s public profile</a>
+    <a ng-href="{{ personHref(document.uri) }}">{{ document.name}}'s public profile on npolar.no</a>
   </section>
+  
+  <!--<section>
+    <h4>Actions</h4>
+    <ul>
+      <li><a ng-href="reset?username={{ document._id }}">Change password</a></li>
+    </ul>
+  </section>-->
+  
+  <md-button ng-if="isLoggedInAs(document._id)" type="submit" ng-click="logout()" class="md-raised md-primary">Logout</md-button>
 
 </article>

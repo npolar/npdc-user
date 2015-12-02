@@ -4,13 +4,15 @@
  */
 var PersonShowController = function ($scope, $controller, $routeParams, Person, User, npdcAppConfig) {
 
-  $controller('NpolarBaseController', {$scope: $scope});
+  $controller('NpolarLoginController', {$scope: $scope}); // makes logout available
   $scope.resource = User;
 
   $scope.personHref = function(uri) {
     if (/api\.npolar\.no/.test(uri)) {
       let id = uri.split('/').slice(-1)[0];
-      return `/person/${id}`;
+      // /en/people/
+      // /no/ansatte/
+      return `http://www.npolar.no/no/ansatte/${id}`;
     } else {
       return '';
     }
@@ -18,6 +20,12 @@ var PersonShowController = function ($scope, $controller, $routeParams, Person, 
   };
 
   let id = $routeParams;
+  
+  
+  $scope.isLoggedInAs = function(email) {
+    console.log(email, $scope.security.getUser());
+    return ($scope.security.getUser().email === email);
+  };
 
   let show = function(resource, id) {
 
