@@ -2,13 +2,11 @@
 
 // @ngInject
 
-var UserUpdateController = function ($scope, $http, $location, $routeParams, NpolarApiSecurity, npolarApiConfig, NpolarApiMessage) {
+var UserUpdateController = function ($scope, $http, $location, $routeParams, NpolarApiSecurity, npolarApiConfig, NpolarMessage) {
   const resetUri = 'https://' + npolarApiConfig.base.split('//')[1]+'/user/reset';
 
   $scope.name = $routeParams.id;
   $scope.security = NpolarApiSecurity;
-
-  console.log($scope.security);
 
   $scope.update = function(user) {
     $http({
@@ -17,7 +15,7 @@ var UserUpdateController = function ($scope, $http, $location, $routeParams, Npo
       data: {password: user.password, name: user.name},
       headers: { 'Authorization': 'Bearer ' + $scope.security.getJwt() }
     }).then(function success(data){
-      NpolarApiMessage.emit("npolar-info", "Your credentials where successfuly updated");
+      NpolarMessage.info("Your credentials where successfuly updated");
       $location.path('.');
     });
   };

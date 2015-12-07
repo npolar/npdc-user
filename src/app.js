@@ -5,7 +5,7 @@ var AutoConfig = npdcCommon.AutoConfig;
 
 var angular = require('angular');
 
-var npdcPersonApp = angular.module('npdcPersonApp', ['npdcUi']);
+var npdcPersonApp = angular.module('npdcPersonApp', ['npdcCommon']);
 
 npdcPersonApp.controller('UserShowController', require('./show/UserShowController'));
 npdcPersonApp.controller('UserListController', require('./list/UserListController'));

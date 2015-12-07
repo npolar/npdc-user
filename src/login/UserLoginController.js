@@ -1,29 +1,29 @@
 'use strict';
 
 // @ngInject
-let UserLoginController = function ($scope, $controller, $http, $location, NpolarApiMessage, Gouncer, npolarApiConfig, npdcAppConfig) {
-  
+let UserLoginController = function ($scope, $controller, $location, NpolarMessage, Gouncer, npdcAppConfig) {
+
   $controller('NpolarLoginController', { $scope: $scope });
   $scope.onetimePasswordReceived = false;
-  
+
   $scope.loginAndRedirectToOrigin = function(email,password) {
-    
+
     Gouncer.authenticate(email, password).then(function(response) {
       $scope.onLogin(response);
       window.location = window.location.origin;
-      
+
     }, $scope.onLoginError);
   };
-  
+
   $scope.logoutAndRedirectToOrigin = function() {
     $scope.logout();
     window.location = window.location.origin;
   };
-  
+
   $scope.isWaitingForOnetimePassword = function() {
     return ($scope.onetimePasswordReceived || ($location.path() === '/login/1-time') );
   };
-  
+
   if ($scope.security.isAuthenticated()) {
     // Already logged in?
     $scope.user = $scope.security.getUser();
@@ -42,7 +42,7 @@ let UserLoginController = function ($scope, $controller, $http, $location, Npola
       }
     }
   }
-  
+
   $scope.password_or_code = function() {
     if ($scope.isWaitingForOnetimePassword()) {
       return 'code';
@@ -50,13 +50,13 @@ let UserLoginController = function ($scope, $controller, $http, $location, Npola
       return 'password';
     }
   };
-  
+
   npdcAppConfig.cardTitle = "Login";
-  
+
   $scope.emailOnetimePassword = function(email) {
-    Gouncer.onetime(email).then(function success(data){  
+    Gouncer.onetime(email).then(function success(data){
       $scope.onetimePasswordReceived = true;
-      NpolarApiMessage.emit("npolar-info", `1-time password sent to: ${email}`);
+      NpolarMessage.info(`1-time password sent to: ${email}`);
     });
   };
 

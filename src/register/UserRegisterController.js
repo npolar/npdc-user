@@ -3,7 +3,7 @@
 // @ngInject
 
 var UserRegisterController = function ($scope, $http, $location, $routeParams, npolarApiConfig,
-  npdcAppConfig, NpolarApiMessage, User, base64) {
+  npdcAppConfig, NpolarMessage, User, base64) {
   const registrationUri = "https://"+npolarApiConfig.base.split("//")[1]+"/user/register";
   const confirmationUri = "https://"+npolarApiConfig.base.split("//")[1]+"/user/confirm";
   const captchaUri = "https://api.npolar.no/_captcha";
@@ -34,7 +34,7 @@ var UserRegisterController = function ($scope, $http, $location, $routeParams, n
 
   $scope.register = function(user) {
     if (user.password !== user.password2) {
-      NpolarApiMessage.emit("npolar-error", "Password mismatch! Please enter the same password twice.");
+      NpolarMessage.error("Password mismatch! Please enter the same password twice.");
     } else {
       $scope.user = user;
       $http({
@@ -45,7 +45,7 @@ var UserRegisterController = function ($scope, $http, $location, $routeParams, n
           "Authorization": "Sicas " + base64.encode($scope.captcha.uuid + ":" + $scope.captcha.string)
         }
       }).then(function success() {
-        NpolarApiMessage.emit("npolar-info", "You should receive a confirmation mail in a short while");
+        NpolarMessage.info("You should receive a confirmation mail in a short while");
         $location.path(".");
       });
     }
@@ -56,7 +56,7 @@ var UserRegisterController = function ($scope, $http, $location, $routeParams, n
       method: "GET",
       url: confirmationUri+'/'+$routeParams.id
     }).then(function success() {
-      NpolarApiMessage.emit("npolar-info", "Confirmation successful. You can now login with your new account");
+      NpolarMessage.info("Confirmation successful. You can now login with your new account");
       $location.path(".");
     });
   };

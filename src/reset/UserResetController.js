@@ -2,12 +2,12 @@
 
 // @ngInject
 
-var UserResetController = function ($scope, $http, $location, npolarApiConfig, NpolarApiMessage, npdcAppConfig, base64) {
+var UserResetController = function ($scope, $http, $location, npolarApiConfig, NpolarMessage, npdcAppConfig, base64) {
   const onetimeUri = 'https://' + npolarApiConfig.base.split('//')[1]+'/user/onetime';
   const resetUri = 'https://' + npolarApiConfig.base.split('//')[1]+'/user/reset';
 
   npdcAppConfig.cardTitle = 'Forgotten password?';
-  
+
   $scope.user = {};
   if ($location.search().username) {
     $scope.user.email = $location.search().username;
@@ -22,7 +22,7 @@ var UserResetController = function ($scope, $http, $location, npolarApiConfig, N
       url: onetimeUri,
       data: {email: user.email}
     }).then(function success(data){
-      NpolarApiMessage.emit("npolar-info", "You should receive en email with your one time code shortly.");
+      NpolarMessage.info("You should receive en email with your one time code shortly.");
     });
   };
 
@@ -36,7 +36,7 @@ var UserResetController = function ($scope, $http, $location, npolarApiConfig, N
       }
     }).then(function success() {
       $location.path('.');
-      NpolarApiMessage.emit("npolar-info", "Your password was successfully updated.");
+      NpolarMessage.info("Your password was successfully updated.");
     });
   };
 
