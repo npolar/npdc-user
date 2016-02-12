@@ -33,7 +33,8 @@ var router = function ($routeProvider, $locationProvider) {
     controller: 'UserEditController'
   }).when('/', {
     template: require('./list/users.html'),
-    controller: 'UserListController'
+    controller: 'UserListController',
+    reloadOnSearch: false
   });
 };
 
