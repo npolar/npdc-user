@@ -20,7 +20,7 @@ var UserShowController = function ($scope, $controller, $routeParams, Person, Us
   };
 
   let id = $routeParams;
-  
+
   $scope.isLoggedInAs = function(email) {
     return ($scope.security.getUser().email === email);
   };
@@ -55,7 +55,7 @@ var UserShowController = function ($scope, $controller, $routeParams, Person, Us
       npdcAppConfig.cardTitle = data.name;
     });
   } else {
-  
+
     // Not authorized, switch to the Person API until https://github.com/npolar/api.npolar.no/issues/63
     id = { id: $routeParams.id.split('@')[0] } ;
     show(Person, id);
