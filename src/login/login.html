@@ -2,8 +2,8 @@
 <md-content style="max-width: 700px; margin: 0 auto;">
   <md-card layout-padding>
 
-    <section ng-if="security.isAuthenticated()">You are logged in as <a ng-href="{{ user.email }}">{{ user.name }}</a>
-      <md-button type="submit" ng-click="logoutAndRedirectToOrigin()" class="md-raised md-primary">Logout</md-button>
+    <section ng-if="security.isAuthenticated()">{{ 'user.logged_in_as' | t }} <a ng-href="{{ user.email }}">{{ user.name }}</a>
+      <md-button type="submit" ng-click="logoutAndRedirectToOrigin()" class="md-raised md-primary">{{ 'user.logout' | t }}</md-button>
     </section>
 
     <section ng-if="!security.isAuthenticated()">
@@ -11,9 +11,9 @@
       <form role="form" name="loginForm" class="np-login">
         <div layout="column">
           <md-input-container flex>
-            <label for="username" class="md-no-float">Username (email)</label>
+            <label for="username" class="md-no-float">{{ 'user.username' | t }} (email)</label>
             <input type="text" ng-model="user.email" id="username" placeholder="full.name@npolar.no" required minlength="5">
-            <div class="error-message" ng-show="loginForm.email.$invalid && !registerForm.email.$pristine">Invalid email address</div>
+            <div class="error-message" ng-show="loginForm.email.$invalid && !registerForm.email.$pristine">{{ 'user.invalid_email' | t }}</div>
           </md-input-container>
           <md-input-container flex>
             <label for="password" class="md-no-float">{{ password_or_code() }}</label>
@@ -21,19 +21,19 @@
           </md-input-container>
         </div>
         <div class="md-actions" layout="row">
-          <md-button ng-disabled="!user.password" flex ng-click="loginAndRedirectToOrigin(user.email,user.password)" class="md-raised md-primary">Login</md-button>
+          <md-button ng-disabled="!user.password" flex ng-click="loginAndRedirectToOrigin(user.email,user.password)" class="md-raised md-primary">{{ 'user.login' | t }}</md-button>
         </div>
 
       </form>
 
       <div ng-show="isWaitingForOnetimePassword()">
-        Not logged in yet, please hit login button
+        {{ 'user.not_logged_in' | t }}
       </div>
 
       <div ng-show="!isWaitingForOnetimePassword()">
       <hr>
-      <p>Not a user? <a href="register">Register</a>
-      <p>Forgot password? <md-button ng-disabled="!user.email" flex ng-click="emailOnetimePassword(user.email)" class="md-raised">Email 1-time code</md-button></p>
+      <p>{{ 'user.not_a_user' | t }} <a href="register">{{ 'user.singup' | t }}</a>
+      <p>{{ 'user.forgot_password' | t }} <md-button ng-disabled="!user.email" flex ng-click="emailOnetimePassword(user.email)" class="md-raised">{{ 'user.email_one_time' | t }}</md-button></p>
       </div>
 
     </section>
