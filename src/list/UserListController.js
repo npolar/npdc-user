@@ -17,8 +17,6 @@ let UserListController = function ($scope, $location, $controller, NpolarApiSecu
   $scope.users = [];
   $scope.q = '';
 
-  npdcAppConfig.cardTitle = 'npdc.app.Title';
-
   let search = function (q) {
     User.fetch({ id: '_ids'}, response => {
       $scope.users = response.ids.filter(user => user.indexOf(q) !== -1).sort((a, b) => {

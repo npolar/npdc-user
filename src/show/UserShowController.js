@@ -52,7 +52,7 @@ var UserShowController = function ($scope, $controller, $routeParams, Person, Us
 
   if ($scope.security.isAuthorized('read', User.path)) {
     show(User, id).$promise.then(data => {
-      npdcAppConfig.cardTitle = data.name;
+      // npdcAppConfig.cardTitle = data.name;
     });
   } else {
 

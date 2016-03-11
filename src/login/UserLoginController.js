@@ -51,8 +51,6 @@ let UserLoginController = function ($scope, $controller, $location, NpolarMessag
     }
   };
 
-  npdcAppConfig.cardTitle = "Login";
-
   $scope.emailOnetimePassword = function(email) {
     Gouncer.onetime(email).then(function success(data){
       $scope.onetimePasswordReceived = true;

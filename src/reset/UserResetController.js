@@ -6,8 +6,6 @@ var UserResetController = function ($scope, $http, $location, npolarApiConfig, N
   const onetimeUri = 'https://' + npolarApiConfig.base.split('//')[1]+'/user/onetime';
   const resetUri = 'https://' + npolarApiConfig.base.split('//')[1]+'/user/reset';
 
-  npdcAppConfig.cardTitle = 'Forgotten password?';
-
   $scope.user = {};
   if ($location.search().username) {
     $scope.user.email = $location.search().username;
@@ -15,7 +13,6 @@ var UserResetController = function ($scope, $http, $location, npolarApiConfig, N
 
   $scope.initUser = function(user) {
     $scope.user = user;
-    npdcAppConfig.cardTitle = 'Reset password';
 
     $http({
       method: 'POST',

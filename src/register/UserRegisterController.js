@@ -8,7 +8,6 @@ var UserRegisterController = function ($scope, $http, $location, $routeParams, n
   const confirmationUri = "https://"+npolarApiConfig.base.split("//")[1]+"/user/confirm";
   const captchaUri = "https://api.npolar.no/_captcha";
 
-  npdcAppConfig.cardTitle = 'Register';
   $scope.captcha = {
     uuid: null,
     src: "//:0",
