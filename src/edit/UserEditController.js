@@ -1,22 +1,23 @@
 'use strict';
 
-/**
- * @ngInject
- */
-var PersonEditController = function ($scope, $controller, $routeParams, User) {
+let PersonEditController = function ($scope, $controller, $routeParams, formula, npdcAppConfig, User) {
+  'ngInject';
 
   // Extend -> NpolarEditController
   $controller('NpolarEditController', { $scope: $scope });
-  
+
   if ($scope.security.isAuthorized('read', User.path)) {
 
     // Person -> npolarApiResource -> ngResource
     $scope.resource = User;
-  
+
     // Formula ($scope.formula is set by parent)
-    $scope.formula.schema = '//api.npolar.no/schema/user-1';
-    $scope.formula.form = 'edit/formula.json';
-    
+    $scope.formula = formula.getInstance({
+      schema: '//api.npolar.no/schema/user-1',
+      form: 'edit/formula.json',
+      templates: npdcAppConfig.formula.templates
+    });
+
     // edit (or new) action
     $scope.edit();
   }
