@@ -28,8 +28,12 @@ resources.forEach(service => {
   }]);
 });
 
-// API HTTP interceptor
-npdcPersonApp.config($httpProvider => {
+npdcPersonApp.config(($httpProvider, npolarApiConfig) => {
+  var environment = 'production';
+  var autoconfig = new AutoConfig(environment);
+  angular.extend(npolarApiConfig, autoconfig, { resources });
+
+  // API HTTP interceptor
   $httpProvider.interceptors.push('npolarApiInterceptor');
 });
 
@@ -37,13 +41,6 @@ npdcPersonApp.config($httpProvider => {
 npdcPersonApp.config(require('./router'));
 
 // Inject npolarApiConfig and run
-npdcPersonApp.run(($http, npolarApiConfig, NpolarTranslate) => {
-  var environment = 'production';
-  var autoconfig = new AutoConfig(environment);
-  angular.extend(npolarApiConfig, autoconfig, { resources, formula : { template : 'material' } });
-  // Load text dictionary
-  $http.get('//api.npolar.no/text/?q=&filter-bundle=npdc-user&format=json&variant=array&limit=all').then(response => {
-    NpolarTranslate.appendToDictionary(response.data);
-  });
-  console.log("npolarApiConfig", npolarApiConfig);
+npdcPersonApp.run(NpolarTranslate => {
+  NpolarTranslate.loadBundles('npdc-user');
 });

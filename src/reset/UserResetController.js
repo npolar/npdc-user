@@ -1,43 +1,22 @@
 'use strict';
 
-// @ngInject
-
-var UserResetController = function ($scope, $http, $location, npolarApiConfig, NpolarMessage, npdcAppConfig, base64) {
-  const onetimeUri = 'https://' + npolarApiConfig.base.split('//')[1]+'/user/onetime';
-  const resetUri = 'https://' + npolarApiConfig.base.split('//')[1]+'/user/reset';
+var UserResetController = function ($scope, $location, Gouncer) {
+  'ngInject';
 
   $scope.user = {};
+
   if ($location.search().username) {
     $scope.user.email = $location.search().username;
   }
 
-  $scope.initUser = function(user) {
-    $scope.user = user;
-
-    $http({
-      method: 'POST',
-      url: onetimeUri,
-      data: {email: user.email}
-    }).then(function success(data){
-      NpolarMessage.info("You should receive en email with your one time code shortly.");
+  $scope.resetPasswd = function () {
+    Gouncer.reset($scope.user).$promise.then(() => {
+      $scope.user.password = $scope.user.password2 = undefined;
     });
   };
 
-  $scope.resetPasswd = function(user) {
-    $http({
-      method: 'POST',
-      url: resetUri,
-      data: {password: user.password},
-      headers: {
-        'Authorization': 'Basic ' + base64.encode(user.email + ':' + user.onetime)
-      }
-    }).then(function success() {
-      $location.path('.');
-      NpolarMessage.info("Your password was successfully updated.");
-    });
-  };
-
-  $scope.compare = function(user) {
+  $scope.compare = function() {
+    let user = $scope.user;
     if (user.password2 !== undefined) {
       if (user.password !== user.password2) {
         $scope.pwdStyle = { color: "rgb(215,10,83)", "border-color": "rgb(215,10,83)" };

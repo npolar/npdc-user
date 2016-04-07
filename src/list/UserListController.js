@@ -3,41 +3,29 @@
 /**
  * @ngInject
  */
-let UserListController = function ($scope, $location, $controller, NpolarApiSecurity, npdcAppConfig, User) {
+let UserListController = function ($scope, $location, $controller, Person) {
 
-  let security = NpolarApiSecurity;
 
   $controller('NpolarBaseController', { $scope: $scope });
-  $scope.resource = User;
+  $scope.resource = Person;
+  $scope.searchOptions = {
+    results: {
+      title(e) {
+        return e.first_name + ' ' + e.last_name;
+      },
+      subtitle: 'email',
+      detail: 'workplace',
+      href: 'email'
+  }};
 
-  if (!security.isAuthorized('read', User.path)) {
+  if (!$scope.security.isAuthorized('read', Person.path)) {
     return $location.path('/login');
   }
 
-  $scope.users = [];
-  $scope.q = '';
+  $scope.search();
 
-  let search = function (q) {
-    User.fetch({ id: '_ids'}, response => {
-      $scope.users = response.ids.filter(user => user.indexOf(q) !== -1).sort((a, b) => {
-        let aIndex = a.indexOf(q);
-        let bIndex = b.indexOf(q);
-        if (aIndex < bIndex) {
-          return -1;
-        } else if (aIndex > bIndex) {
-          return 1;
-        }
-        return 0;
-      });
-    });
-  };
-
-  search('');
-
-  $scope.$watch('q', (newVal, oldVal) => {
-    if (newVal !== oldVal) {
-      search(newVal);
-    }
+  $scope.$on('$locationChangeSuccess', (event, data) => {
+    $scope.search();
   });
 };
 

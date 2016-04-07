@@ -16,9 +16,6 @@ var router = function ($routeProvider, $locationProvider) {
   }).when('/login/1-time', {
     template: require('./login/login.html'),
     controller: 'UserLoginController'
-  }).when('/reset', {
-    template: require('./reset/reset-user.html'),
-    controller: 'UserResetController'
   }).when('/update/:id', {
     template: require('./update/update.html'),
     controller: 'UserUpdateController'

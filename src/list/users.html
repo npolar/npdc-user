@@ -1,32 +1,3 @@
 <!DOCTYPE html>
-<md-whiteframe class="np-search-input md-whiteframe-z1">
-  <div layout="row">
-    <md-input-container flex md-no-float md-autofocus class="np-search-input-input md-icon-left">
-      <md-icon>search</md-icon>
-      <input ng-model="q" placeholder="Filter users" type="text" md-autofocus>
-    </md-input-container>
-  </div>
-</md-whiteframe>
-
-<npdc:create-button class="np-primary-control"></npdc:create-button>
-<div class="npdc-search">
-  <md-content>
-
-    <section>
-      <npdc:loader ng-if="!users.length"></npdc:loader>
-
-      <div class="np-layout-list">
-        <md-list>
-          <md-list-item class="md-2-line" ng-repeat="user in users" ng-href="{{ user }}">
-            <div class="md-list-item-text">
-              <h3 class="md-headline">
-                <span md-highlight-text="q" md-highlight-flags="ig">{{ user }}</span>
-              </h3>
-            </div>
-            <md-divider></md-divider>
-          </md-list-item>
-        </md-list>
-      </div>
-    </section>
-  </md-content>
-</div>
+<npdc:search-input feed="feed"></npdc:search-input>
+<npdc:search feed="feed" options="searchOptions"></npdc:search>

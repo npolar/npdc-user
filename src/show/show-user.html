@@ -4,14 +4,10 @@
 
 
 <article ng-if="document" class="np-padding">
+  <h1>{{ name() }}</h1>
 
-  <div ng-if="isLoggedInAs(document._id)">
-    <h3>You are logged in as this user</h3>
-  </div>
-  
-  
   <npdc-document:meta></npdc-document:meta>
-  <span ng-if="false == document.active"> [deactivated]</span>
+  <span ng-if="false == active()"> [deactivated]</span>
 
   <section ng-if="document.systems">
     <h3>Access rights</h3>
@@ -32,16 +28,33 @@
   </section>
 
   <section ng-if="document.uri">
-    <a ng-href="{{ personHref(document.uri) }}">{{ document.name}}'s public profile on npolar.no</a>
+    <a ng-href="{{ personHref(document.uri) }}">{{ name()}}'s public profile on npolar.no</a>
   </section>
-  
-  <!--<section>
-    <h4>Actions</h4>
-    <ul>
-      <li><a ng-href="reset?username={{ document._id }}">Change password</a></li>
-    </ul>
-  </section>-->
-  
-  <md-button ng-if="isLoggedInAs(document._id)" type="submit" ng-click="logout()" class="md-raised md-primary">Logout</md-button>
+
+  <div ng-if="isLoggedInAs()">
+    <h3>You are logged in as this user</h3>
+
+    <div class="md-whiteframe-2dp layout-padding" ng-controller="UserResetController">
+      <h4>Reset password</h4>
+      <form ng-submit="resetPasswd();">
+        <div layout>
+          <md-input-container class="md-icon-float" flex="50">
+            <label>New Password</label>
+            <md-icon class="name" ng-style="pwdStyle">security</md-icon>
+            <input ng-model="user.password" ng-change="compare()" ng-style="pwdStyle" type="password">
+          </md-input-container>
+          <md-input-container class="md-icon-float" flex="50">
+            <label>Repeat Password</label>
+            <md-icon class="name" ng-style="pwdStyle">security</md-icon>
+            <input ng-model="user.password2" ng-change="compare()" ng-style="pwdStyle" type="password">
+          </md-input-container>
+        </div>
+        <md-button class="md-raised md-primary" type="sumbit">Reset</md-button>
+      </form>
+    </div>
+    <div layout layout-align="end end" style="height: 100px;">
+      <md-button ng-click="logout()" class="md-raised md-primary">Logout</md-button>
+    </div>
+  </div>
 
 </article>
